@@ -49,6 +49,7 @@
      <Compile Include="Assets\Movement.cs" />
      <Compile Include="Assets\Selection.cs" />
      <Compile Include="Assets\Spawning.cs" />
+     <Compile Include="Assets\VariableStoreage.cs" />
      <Compile Include="Assets\Variables.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">

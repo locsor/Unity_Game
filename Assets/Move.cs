@@ -17,7 +17,7 @@ public class Move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float x1 = 0, y1 = 0, z1;
+		float x1 = 0, y1 = 0;
 		float x2, y2, z2;
 		float y3 = 0.1f, x3 = 0.1f;
 		x2 = transform.position.x;

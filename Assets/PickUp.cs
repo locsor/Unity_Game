@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour {
 	private bool pickedup = true;
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame

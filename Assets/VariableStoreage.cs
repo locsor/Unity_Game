@@ -18,8 +18,4 @@ public class VariableStoreage : MonoBehaviour {
 		NumberOfUnits = 0;
 		NumberOfWeapons = 2;
 	}
-
-	void Update () {
-	
-	}
 }

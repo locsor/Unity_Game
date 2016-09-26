@@ -3,16 +3,16 @@ using System.Collections;
 
 public class Move : MonoBehaviour {
 	public bool can_move = false;
-	public int NumOfUnit;
 	public Vector3 target;
 	public Camera cam;
 	public static Camera cam1;
 	public GameObject container;
+	public int unit_name;
+	public GameObject selection_script;
 	void Start () {
 		cam1 = cam;
-		NumOfUnit = container.GetComponent<VariableStoreage> ().NumberOfUnits;
-		container.GetComponent<VariableStoreage>().xcord [container.GetComponent<VariableStoreage>().NumberOfUnits] = transform.position.x;
-		container.GetComponent<VariableStoreage>().ycord [container.GetComponent<VariableStoreage>().NumberOfUnits] = transform.position.y;
+		container.GetComponent<VariableStoreage>().xcord [unit_name] = transform.position.x;
+		container.GetComponent<VariableStoreage>().ycord [unit_name] = transform.position.y;
 	}
 	
 	// Update is called once per frame
@@ -46,5 +46,9 @@ public class Move : MonoBehaviour {
 				y2 = transform.position.y;
 			}
 		}
+	}
+	void OnMouseOver()
+	{
+		selection_script.GetComponent<Selection> ().unit = unit_name;
 	}
 }

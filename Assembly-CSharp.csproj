@@ -50,6 +50,7 @@
      <Compile Include="Assets\Movement.cs" />
      <Compile Include="Assets\PickUp.cs" />
      <Compile Include="Assets\Selection.cs" />
+     <Compile Include="Assets\SelectionRecatangle.cs" />
      <Compile Include="Assets\Spawning.cs" />
      <Compile Include="Assets\VariableStoreage.cs" />
      <Compile Include="Assets\Variables.cs" />

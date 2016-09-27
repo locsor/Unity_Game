@@ -23,12 +23,12 @@ public class Move : MonoBehaviour {
 		x2 = transform.position.x;
 		y2 = transform.position.y;
 		z2 = transform.position.z;
-		if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (1)) {
 			target = cam.ScreenToWorldPoint (Input.mousePosition);
 		}
 		x1 = target.x;
 		y1 = target.y;
-		if (can_move == true) {
+		if (can_move) {
 			if (Mathf.Round (transform.position.x) < Mathf.Round (x1)) {
 				transform.position = new Vector3 (x2 + x3, y2, z2);
 				x2 = transform.position.x;

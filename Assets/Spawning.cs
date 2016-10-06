@@ -23,6 +23,9 @@ public class Spawning : MonoBehaviour {
 			new_unit [unit_counter].GetComponent<Move> ().unit_name = unit_counter;
 			new_unit [unit_counter].GetComponent<PickUp> ().container = container;
 			new_unit [unit_counter].GetComponent<Move> ().selection_script = selection;
-		}
+            new_unit[unit_counter].name = "Unit " + unit_counter;
+            container.GetComponent<VariableStoreage>().target_arrx.Add(0f);
+            container.GetComponent<VariableStoreage>().target_arry.Add(0f);
+        }
 	}
 }

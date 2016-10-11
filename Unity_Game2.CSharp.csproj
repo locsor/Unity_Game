@@ -73,6 +73,7 @@
     <Compile Include="Assets\Fill.cs" />
     <Compile Include="Assets\Move.cs" />
     <Compile Include="Assets\Movement.cs" />
+    <Compile Include="Assets\PathFinding.cs" />
     <Compile Include="Assets\PickUp.cs" />
     <Compile Include="Assets\Selection.cs" />
     <Compile Include="Assets\SelectionRecatangle.cs" />

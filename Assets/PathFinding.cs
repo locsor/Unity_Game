@@ -1,102 +1,149 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+public struct Node
+{
+    public Transform node;
+    public float fScore;
+    public float gScore;
+    public int index;
+}
 public class PathFinding : MonoBehaviour {
+    public List<Transform> closedSet = new List<Transform>();
+    public List<Transform> openSet = new List<Transform>();
+    public List<Transform> result;
     public GameObject NodeMap;
-    private List<Transform> closed_set;
-    private List<Transform> open_set;
-    private Transform[] cameFrom;
-    public List<float> gScore;
-    public List<float> fScore;
     private Transform[] all;
-    private Transform current;
     public List<Transform> neighbor;
     private List<Transform> added_neighbor;
-    private float tentative_gScore;
     private bool already_added;
-    private int current_num;
+    public Transform goal;
+    private Node current;
     private float min_fScore;
-    private Vector2 goal;
-    public Camera cam;
     private int min_num;
+    private bool found = false;
+    public Transform[] cameFrom = new Transform[30];
     void Start() {
-        all = new Transform[12];
+        all = new Transform[30];
         neighbor = new List<Transform>();
         added_neighbor = new List<Transform>();
-        cameFrom = new Transform[12];
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 30; i++)
         {
             all[i] = NodeMap.gameObject.transform.GetChild(i);
+            //Debug.Log(all[i].name);
         }
-        closed_set = new List<Transform>();
-        open_set = new List<Transform>();
-        open_set.Add(NodeMap.gameObject.transform.GetChild(0));
-        gScore = new List<float>();
-        fScore = new List<float>();
-        gScore.Add(0);
-        current = NodeMap.gameObject.transform.GetChild(0);
         already_added = false;
-        current_num = 0;
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(1))
+        if(found == false)
         {
-            fScore.Add(Mathf.Sqrt(Mathf.Pow((all[0].position.x - goal.x), 2) - Mathf.Pow((all[0].position.y - goal.y), 2)));
-            goal = cam.ScreenToWorldPoint(Input.mousePosition);
-            Astar();
-            fScore.Clear();
+            found = Astar();
         }
     }
-
-    void Astar()
+    bool Astar()
     {
-        while (open_set.Count != 0)
+        found = true;
+        int c = -1;
+        float tentative_gScore;
+        Node[] node_list = new Node[30];
+        for(int i = 0; i < 30; i++)
         {
-            min_fScore = fScore[0];
-            for (int i = 0; i < fScore.Count; i++)
+            node_list[i].node = all[i];
+            node_list[i].index = i;
+        }
+        goal = node_list[26].node;
+        List<Node> nan;
+        nan = new List<Node>();
+        openSet.Add(all[0]);
+        
+        //List<float> gScore = new List<float>();
+        //gScore.Add(0);
+        //List<float> fScore = new List<float>();
+        //fScore.Add(Vector2.Distance(all[0].position, goal.position));
+        node_list[0].fScore = Vector2.Distance(all[0].position, goal.position);
+        node_list[0].gScore = 0;
+        while(openSet.Count != 0)
+        {
+            //Debug.Log(openSet.Count);
+            for (int j = 0; j < 30; j++)
             {
-                if (fScore[i] < min_fScore)
+                if (node_list[j].node.name == openSet[0].name)
                 {
-                    min_fScore = fScore[i];
-                    min_num = i;
+                     min_fScore = node_list[j].fScore;
                 }
             }
-            current = open_set[min_num];
-            if (current.position.x == Mathf.Round(goal.x) + 0.5 && current.position.y == Mathf.Round(goal.x))
+            for (int i = 0; i < openSet.Count; i++)
             {
+                for(int j = 0; j < 30; j++)
+                {
+                    if(node_list[j].node == openSet[i])
+                    {
+                        if(node_list[j].fScore <= min_fScore && openSet.Contains(node_list[j].node))
+                        {
+                            min_fScore = node_list[j].fScore;
+                            min_num = node_list[j].index;
+                        }
+                    }
+                }
+            }
+            current.node = node_list[min_num].node;
+            current.index = min_num;
+            //Debug.Log(current);
+            if (current.node == goal)
+            {
+                //cameFrom = smooth(cameFrom);
                 Debug.Log("Route Found");
+                result = reconstruct(cameFrom, current);
+                return true;
             }
-            
-            neighbors(current, 0);
-            open_set.Remove(current);
-            closed_set.Add(current);
-            for(int i = 0; i < neighbor.Count; i++)
+            openSet.Remove(current.node);
+            closedSet.Add(current.node);
+            neighbor.Clear();
+            neighbors(current.node);
+            //Debug.Log('!');
+            nan.Clear();
+            for (int i = 0; i < neighbor.Count; i++)
             {
-                if(!closed_set.Contains(neighbor[i]))
+                for(int j = 0; j < 30; j++)
                 {
-                    break;
+                    if(node_list[j].node == neighbor[i])
+                    {
+                        nan.Add(node_list[j]);
+                    }
                 }
-                tentative_gScore = gScore[current_num] + Mathf.Sqrt(Mathf.Pow((neighbor[i].position.x - current.position.x), 2) - Mathf.Pow((neighbor[i].position.y - current.position.y), 2));
-                if(!open_set.Contains(neighbor[i]))
+            }
+            c++;
+            for (int i = 0; i < neighbor.Count; i++)
+            {
+                if(closedSet.Contains(nan[i].node))
                 {
-                    open_set.Add(neighbor[i]);
+                    continue;
                 }
-                else if(tentative_gScore < gScore[i])
+                tentative_gScore = node_list[min_num].gScore + Vector2.Distance(current.node.position, goal.position);
+                if(!openSet.Contains(nan[i].node))
                 {
-                    break;
+                    openSet.Add(nan[i].node);
+                    Debug.Log('!');
                 }
-                cameFrom[i] = current;
-                gScore[i] = tentative_gScore;
-                Debug.Log(gScore[i]);
-                fScore[i] = gScore[i] + Mathf.Sqrt(Mathf.Pow((neighbor[i].position.x - goal.x), 2) - Mathf.Pow((neighbor[i].position.y - goal.y), 2));
+                else if(tentative_gScore >= nan[i].gScore)
+                {
+                    continue;
+                }
+                //Debug.Log('!');
+                cameFrom[c] = current.node;
+                node_list[nan[i].index].gScore = tentative_gScore;
+                node_list[nan[i].index].fScore = node_list[nan[i].index].gScore + Vector2.Distance(nan[i].node.position, goal.position);
+                //Debug.Log(node_list[nan[i].index].fScore);
             }
         }
+        return false;
     }
-    void neighbors(Transform node, int num)
+    void neighbors(Transform node)
     {
-        for (int i = 0; i < 12; i++)
+        added_neighbor.Clear();
+        neighbor.Clear();
+        for (int i = 0; i < 30; i++)
         {
             if(node.position.x + 1 == all[i].position.x && node.position.y == all[i].position.y)
             {
@@ -111,9 +158,12 @@ public class PathFinding : MonoBehaviour {
                 {
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
+                    //Debug.Log(all[i]);
                 }
             }
             already_added = false;
+            //Debug.Log(node.position.x + 1);
+            //Debug.Log(node.position.y + 1);
             if (node.position.x + 1 == all[i].position.x && node.position.y + 1 == all[i].position.y)
             {
                 for (int j = 0; j < added_neighbor.Count; j++)
@@ -125,6 +175,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                    //Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -141,6 +192,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                   // Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -157,6 +209,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                    //Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -173,6 +226,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                   // Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -189,6 +243,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                   // Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -205,6 +260,7 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                    //Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
@@ -221,12 +277,62 @@ public class PathFinding : MonoBehaviour {
                 }
                 if (already_added == false)
                 {
+                    //Debug.Log(all[i]);
                     neighbor.Add(all[i]);
                     added_neighbor.Add(all[i]);
                 }
             }
             already_added = false;
         }
-        
+    }
+    Transform[] smooth(Transform[] map)
+    {
+        neighbor.Clear();
+        for(int i = 0; i < map.Length; i++)
+        {
+            if(i < map.Length - 1 )
+            {
+                neighbors(map[i]);
+                if(neighbor.Contains(map[i+1]))
+                {
+                    map[i] = null;
+                }
+            }
+        }
+        return map;
+    }
+    List<Transform> reconstruct(Transform[] came, Node cur)
+    {
+        int c = 0;
+        List<Transform> TotalPath = new List<Transform>();
+        TotalPath.Add(cur.node);
+        while (check(came,cur.node))
+        {
+            cur.node = cameFrom[cur.index];
+            TotalPath.Add(cur.node);
+        }
+        return TotalPath;
+    }
+    bool check(Transform[] came, Transform cur)
+    {
+        for(int i = 0; i < came.Length; i++)
+        {
+            if(came[i] == cur)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    int check_num(Transform[] came, Transform cur)
+    {
+        for (int i = 0; i < came.Length; i++)
+        {
+            if (came[i] == cur)
+            {
+                return i;
+            }
+        }
+        return 100;
     }
 }

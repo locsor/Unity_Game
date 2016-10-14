@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\CoordinatesForStorage.cs" />
     <Compile Include="Assets\Fill.cs" />
+    <Compile Include="Assets\Lee.cs" />
     <Compile Include="Assets\Move.cs" />
     <Compile Include="Assets\Movement.cs" />
     <Compile Include="Assets\PathFinding.cs" />

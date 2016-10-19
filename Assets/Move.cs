@@ -15,11 +15,12 @@ public class Move : MonoBehaviour {
     public bool is_selected = false;
     private Transform circle;
     private bool selected = false;
-    private Transform[] map;
+    private List<Transform> map;
     public List<Transform> path;
     public int step= 0;
     private float a;
     private float b;
+    private bool on_spot = false;
     void Start()
     {
         cam1 = cam;
@@ -34,12 +35,12 @@ public class Move : MonoBehaviour {
     void Update()
     {
         path.Clear();
-        map = GetComponent<PathFinding>().cameFrom;
-        for(int i = 0; i < map.Length; i++)
+        map = GetComponent<PathFinding>().TotalPath;
+        for (int i = 0; i < map.Count; i++)
         {
-            if(map[i] != null)
+            if (map[i] != null)
             {
-                path.Add(map[i]);
+                path.Add(map[step]);
             }
         }
         float x1 = 0, y1 = 0;
@@ -50,40 +51,66 @@ public class Move : MonoBehaviour {
         z2 = transform.position.z;
         if (Input.GetMouseButtonDown(1) && can_move) {
             target = cam.ScreenToWorldPoint(Input.mousePosition);
+            container.GetComponent<VariableStoreage>().target_arrx[unit_name - 1] = target.x;
+            container.GetComponent<VariableStoreage>().target_arry[unit_name - 1] = target.y;
         }
         else if (!can_move)
         {
-            target = transform.position;
+            target = path[0].position;
+            container.GetComponent<VariableStoreage>().target_arrx[unit_name - 1] = target.x;
+            container.GetComponent<VariableStoreage>().target_arry[unit_name - 1] = target.y;
         }
         x1 = container.GetComponent<VariableStoreage>().target_arrx[unit_name - 1];
         y1 = container.GetComponent<VariableStoreage>().target_arry[unit_name - 1];
-        if (Mathf.Round(transform.position.x*10f)/10f < Mathf.Round((x1*10f)/10f)) {
-            transform.position = new Vector3(x2 + x3, y2, z2);
-            x2 = transform.position.x;
-        }
-        if (Mathf.Round(transform.position.x * 10f) / 10f > Mathf.Round((x1 * 10f) / 10f))
+        if(transform.position != target)
         {
-            transform.position = new Vector3(x2 - x3, y2, z2);
-            x2 = transform.position.x;
+            transform.position = Vector2.MoveTowards(transform.position, target, 3f*Time.deltaTime);
         }
-        if (Mathf.Round(transform.position.y * 10f) / 10f < Mathf.Round((y1 * 10f) / 10f))
+        else
         {
-            
-            transform.position = new Vector3(x2, y2 + y3, z2);
-            y2 = transform.position.y;
-        }
-        if (Mathf.Round(transform.position.y * 10f) / 10f > Mathf.Round((y1 * 10f) / 10f))
-        {
-            transform.position = new Vector3(x2, y2 - y3, z2);
-            //Debug.Log('!');
-            y2 = transform.position.y;
-        }
-        //Debug.Log(Mathf.Round(transform.position.y/10f)*10f);
-        //Debug.Log(Mathf.Round(y1*10f)/10f);
-        if (transform.position.x < target.x + 0.11f && transform.position.x > target.x - 0.11f && transform.position.y < target.y + 0.11f && transform.position.y > target.y - 0.11f)
-        {
+            //Debug.Log(step);
             step++;
         }
+        //if (Mathf.Round(transform.position.x) != target.x && Mathf.Round(transform.position.y) != target.y)
+        //{
+        //    if (transform.position.x < x1 && on_spot == false) {
+        //        transform.position = new Vector3(x2 + x3, y2, z2);
+        //        x2 = transform.position.x;
+        //    }
+        //    if (transform.position.x > x1 && on_spot == false)
+        //    {
+        //        transform.position = new Vector3(x2 - x3, y2, z2);
+        //        x2 = transform.position.x;
+        //    }
+        //    if (transform.position.y < y1 && on_spot == false)
+        //    {
+
+        //        transform.position = new Vector3(x2, y2 + y3, z2);
+        //        y2 = transform.position.y;
+        //    }
+        //    if (transform.position.y > y1 && on_spot == false)
+        //    {
+        //        transform.position = new Vector3(x2, y2 - y3, z2);
+        //        //Debug.Log('!');
+        //        y2 = transform.position.y;
+        //    }
+        //    if ((transform.position.x - x1 < 0.4f && transform.position.y - y1 < 0.4f) && (transform.position.x - x1 > -0.4f && transform.position.y - y1 > -0.4f))
+        //    {
+        //        on_spot = true;
+        //        transform.position = new Vector3(x2 + transform.position.x - x1, y2 + transform.position.y - y1, z2);
+        //        x2 = transform.position.x;
+        //        y2 = transform.position.y;
+        //        step++;
+        //        on_spot = false;
+        //    }
+        //    Debug.Log(Mathf.Round(transform.position.x));
+        //}
+        //else if(Mathf.Round(transform.position.x) == target.x && Mathf.Round(transform.position.y) == target.y)
+        //{
+        //    Debug.Log("123456");
+        //}
+        //Debug.Log(Mathf.Round(transform.position.y/10f)*10f);
+        //Debug.Log(Mathf.Round(y1*10f)/10f);
         if(step == path.Count)
         {
             //Debug.Log('*');

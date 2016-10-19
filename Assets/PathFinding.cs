@@ -18,22 +18,26 @@ public class PathFinding : MonoBehaviour {
     private bool already_added;
     private bool found = false;
     private Node[] node_list;
-    private int abc = 0;
+    private bool abc;
     public List<Transform> result;
-    public Transform[] cameFrom = new Transform[27];
-    public Transform[] check_cameFrom = new Transform[27];
+    public Transform[] cameFrom;
+    private int childCount;
+    public List<Transform> TotalPath = new List<Transform>();
     void Start() {
-        all = new Transform[27];
+        abc = false;
+        childCount = NodeMap.transform.childCount;
+        all = new Transform[childCount];
+        cameFrom = new Transform[childCount];
         neighbor = new List<Transform>();
         added_neighbor = new List<Transform>();
         result = new List<Transform>();
-        for (int i = 0; i < 27; i++)
+        for (int i = 0; i < childCount; i++)
         {
             all[i] = NodeMap.gameObject.transform.GetChild(i);
             //Debug.Log(all[i].name);
         }
-        node_list = new Node[27];
-        for (int i = 0; i < 27; i++)
+        node_list = new Node[childCount];
+        for (int i = 0; i < childCount; i++)
         {
             node_list[i].node = all[i];
             node_list[i].index = i;
@@ -42,34 +46,17 @@ public class PathFinding : MonoBehaviour {
     }
 
     void Update() {
-        if(abc == 0)
+        int count;
+        count = 0;
+        if (!found)
         {
-            found = Astar(node_list[0].node, node_list[21], check_cameFrom);
-            for(int i = 0; i < 27; i++)
+            Debug.Log(abc);
+            for(int i = 0; i < childCount; i++)
             {
                 node_list[i].fScore = 0;
                 node_list[i].gScore = 0;
             }
-            found = Astar(node_list[21].node, node_list[0], cameFrom);
-            for(int i = 0; i < cameFrom.Length; i++)
-            {
-                for(int j = 0; j < check_cameFrom.Length; j++)
-                {
-                    if(cameFrom[i] == check_cameFrom[j] && cameFrom[i] != null)
-                    {
-                        Debug.Log(check_cameFrom[j]);
-                        result.Add(cameFrom[i]);
-                    }
-                }
-            }
-            for(int i = 0; i < result.Count; i++)
-            {
-                if(result[i] == null)
-                {
-                    result.Remove(result[i]);
-                }
-            }
-            abc++;
+            found = Astar(node_list[48].node, node_list[0], cameFrom);
         }
     }
     bool Astar(Transform goal, Node start, Transform[] path)
@@ -96,7 +83,7 @@ public class PathFinding : MonoBehaviour {
         while(openSet.Count != 0)
         {
             //Debug.Log(openSet.Count);
-            for (int j = 0; j < 27; j++)
+            for (int j = 0; j < childCount; j++)
             {
                 if (node_list[j].node == openSet[0])
                 {
@@ -105,7 +92,7 @@ public class PathFinding : MonoBehaviour {
             }
             for (int i = 0; i < openSet.Count; i++)
             {
-                for(int j = 0; j < 27; j++)
+                for(int j = 0; j < childCount; j++)
                 {
                     if(node_list[j].node == openSet[i])
                     {
@@ -122,11 +109,27 @@ public class PathFinding : MonoBehaviour {
             //Debug.Log(current);
             if (current.node == goal)
             {
-                //cameFrom = smooth(cameFrom);
-                Debug.Log("Route Found");
-                //Debug.Log(current.index);
-                //path[ind] = current.node;
-                //result = reconstruct(cameFrom, current);
+                for (int i = 0; i < cameFrom.Length; i++)
+                {
+                    if (cameFrom[i] != null)
+                    {
+                        result.Add(cameFrom[i]);
+                    }
+                }
+                TotalPath.Add(result[result.Count - 1]);
+                current.node = result[result.Count - 1];
+                result.Reverse();
+                for(int i = 1; i < result.Count; i++)
+                {
+                    neighbors(current.node);
+                    if (neighbor.Contains(result[i + 1]))
+                    {
+                        TotalPath.Add(result[i + 1]);
+                        current.node = result[i + 1];
+                    }
+                    else
+                        continue;
+                }
                 return true;
             }
             openSet.Remove(current.node);
@@ -137,7 +140,7 @@ public class PathFinding : MonoBehaviour {
             nan.Clear();
             for (int i = 0; i < neighbor.Count; i++)
             {
-                for(int j = 0; j < 27; j++)
+                for(int j = 0; j < childCount; j++)
                 {
                     if(node_list[j].node == neighbor[i])
                     {
@@ -177,7 +180,7 @@ public class PathFinding : MonoBehaviour {
     {
         added_neighbor.Clear();
         neighbor.Clear();
-        for (int i = 0; i < 27; i++)
+        for (int i = 0; i < childCount; i++)
         {
             if(node.position.x + 1 == all[i].position.x && node.position.y == all[i].position.y)
             {
@@ -319,49 +322,22 @@ public class PathFinding : MonoBehaviour {
             already_added = false;
         }
     }
-    Transform[] smooth(Transform[] map)
+    List<Transform> smooth(List<Transform> map)
     {
         neighbor.Clear();
-        for(int i = 0; i < map.Length; i++)
+        for(int i = 0; i < map.Count; i++)
         {
-            if(i < map.Length - 1 )
+            if(i < map.Count - 1 )
             {
                 neighbors(map[i]);
-                if(neighbor.Contains(map[i+1]))
+                if(!neighbor.Contains(map[i+1]))
                 {
-                    map[i] = null;
+                    map.Remove(map[i + 1]);
                 }
             }
         }
         return map;
     }
-    //List<Transform> reconstruct(Transform[] came, Node cur)
-    //{
-    //    int a = 0;
-    //    List<Transform> TotalPath = new List<Transform>();
-    //    List<Transform> came_list = new List<Transform>();
-    //    TotalPath.Add(cur.node);
-    //    for(int i = 0; i < 27; i++)
-    //    {
-    //        came_list.Add(came[i]);
-    //        Debug.Log(came_list[i]);
-    //    }
-    //    while (came_list.Contains(cur.node)||a<20)
-    //    {
-    //        a++;
-    //        Debug.Log("reconstruction");
-    //        for (int i = 0; i < 27; i++)
-    //        {
-    //            if (came_list[cur.index] == node_list[i].node )
-    //            {
-    //                cur = node_list[i];
-    //                Debug.Log('!');
-    //                TotalPath.Add(cur.node);
-    //            }
-    //        }
-    //    }
-    //    return TotalPath;
-    //}
     bool check(Transform[] came, Transform cur)
     {
         for(int i = 0; i < came.Length; i++)

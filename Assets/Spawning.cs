@@ -9,6 +9,7 @@ public class Spawning : MonoBehaviour {
 	public GameObject container;
 	public GameObject selection;
 	private int unit_counter;
+    public GameObject mesh;
 	void Start () {
 		new_unit = new GameObject[20];
 	}

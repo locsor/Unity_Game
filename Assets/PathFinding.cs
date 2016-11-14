@@ -65,7 +65,6 @@ public class PathFinding : MonoBehaviour {
     }
     bool Astar(Transform goal, Node start, Transform[] path)
     {
-        Debug.Log("e4321");
         found = true;
         int ind = 0;
         int min_num = 0;
@@ -116,7 +115,6 @@ public class PathFinding : MonoBehaviour {
             current.index = min_num;
             if (current.node.position == goal.position)
             {
-                Debug.Log("321");
                 recunstructPath(current);
                 return true;
             }

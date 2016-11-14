@@ -101,9 +101,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+    <Compile Include="Assets\UnityVC\Editor\StandardShaderVCGUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\UnityVC\StandardSpecularVC.shader" />
+    <None Include="Assets\UnityVC\StandardVC.shader" />
+    <None Include="Assets\UnityVC\UnityVC.cginc" />
+    <None Include="Assets\UnityVC\UnityVCShadow.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

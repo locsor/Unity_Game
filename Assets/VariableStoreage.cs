@@ -15,7 +15,8 @@ public class VariableStoreage : MonoBehaviour {
 	public int NumberOfWeapons;
 	void Start ()
     {
-		xcord = new float[20];
+        QualitySettings.antiAliasing = 8;
+        xcord = new float[20];
 		ycord = new float[20];
 		weapon_cordx = new float[2];
 		weapon_cordy = new float[2];
@@ -26,8 +27,4 @@ public class VariableStoreage : MonoBehaviour {
         NumberOfUnits = 0;
 		NumberOfWeapons = 2;
 	}
-    void Update()
-    {
-
-    }
 }

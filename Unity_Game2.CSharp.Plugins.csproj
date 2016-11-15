@@ -108,7 +108,10 @@
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+<<<<<<< HEAD
     <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
+=======
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
     <None Include="Assets\UnityVC\StandardSpecularVC.shader" />
     <None Include="Assets\UnityVC\StandardVC.shader" />
     <None Include="Assets\UnityVC\UnityVC.cginc" />

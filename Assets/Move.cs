@@ -80,7 +80,11 @@ public class Move : MonoBehaviour {
         y1 = container.GetComponent<VariableStoreage>().target_arry[unit_name - 1];
         if(transform.position != target)
         {
+<<<<<<< HEAD
             transform.position = Vector2.MoveTowards(transform.position, target, 0.5f*Time.deltaTime);
+=======
+            transform.position = Vector2.MoveTowards(transform.position, target, 2f*Time.deltaTime);
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
         }
         else
         {

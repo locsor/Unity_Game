@@ -24,6 +24,7 @@ public class Move : MonoBehaviour {
     private bool on_spot = false;
     private Transform potentialStartNode;
     private Rigidbody2D rb;
+    private int counter;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -58,7 +59,6 @@ public class Move : MonoBehaviour {
                     {
                         GetComponent<PathFinding>().start_node = potentialStartNode;
                         GetComponent<PathFinding>().finish_node = GetComponent<PathFinding>().node_list[i];
-                        Debug.Log(GetComponent<PathFinding>().finish_node.node);
                     }
                 }
                 GetComponent<PathFinding>().found = false;
@@ -80,7 +80,11 @@ public class Move : MonoBehaviour {
         y1 = container.GetComponent<VariableStoreage>().target_arry[unit_name - 1];
         if(transform.position != target)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target, 6f*Time.deltaTime);
+<<<<<<< HEAD
+            transform.position = Vector2.MoveTowards(transform.position, target, 0.5f*Time.deltaTime);
+=======
+            transform.position = Vector2.MoveTowards(transform.position, target, 2f*Time.deltaTime);
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
         }
         else
         {
@@ -95,6 +99,7 @@ public class Move : MonoBehaviour {
         }
         if (selection_script.GetComponent<Selection>().unit == 0 && Input.GetMouseButtonDown(0))
         {
+          counter = 0;
           can_move = false;
           is_selected = false;
           container.GetComponent<VariableStoreage>().selected_units.Clear();
@@ -118,7 +123,7 @@ public class Move : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (is_selected == false && other.CompareTag("Selector"))
+        if (is_selected == false && other.CompareTag("Selector") && other)
         {
             selection_script.GetComponent<Selection>().unit = 0;
             container.GetComponent<VariableStoreage>().selected_units.Add(gameObject);

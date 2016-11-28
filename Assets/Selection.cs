@@ -24,13 +24,11 @@ public class Selection : MonoBehaviour {
         spawn.GetComponent<Spawning>().new_unit[i].GetComponent<Move>().is_selected = true;
         for (int j = 1; j < i; j++)
         {
-               Debug.Log(i);
                spawn.GetComponent<Spawning>().new_unit[j].GetComponent<Move>().can_move = false;    
                spawn.GetComponent<Spawning>().new_unit[j].GetComponent<Move>().is_selected = false;
         }
         for (int j = i+1; j < container.GetComponent<VariableStoreage>().NumberOfUnits+1; j++)
         {
-            Debug.Log(i);
             spawn.GetComponent<Spawning>().new_unit[j].GetComponent<Move>().can_move = false;
             spawn.GetComponent<Spawning>().new_unit[j].GetComponent<Move>().is_selected = false;
         }

@@ -25,7 +25,10 @@ public class Move : MonoBehaviour {
     private Transform potentialStartNode;
     private Rigidbody2D rb;
     private int counter;
+<<<<<<< HEAD
     private Renderer rend;
+=======
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -86,7 +89,15 @@ public class Move : MonoBehaviour {
         y1 = container.GetComponent<VariableStoreage>().target_arry[unit_name - 1];
         if(transform.position != target)
         {
+<<<<<<< HEAD
             transform.position = Vector2.MoveTowards(transform.position, target, 1.5f*Time.deltaTime);
+=======
+<<<<<<< HEAD
+            transform.position = Vector2.MoveTowards(transform.position, target, 0.5f*Time.deltaTime);
+=======
+            transform.position = Vector2.MoveTowards(transform.position, target, 2f*Time.deltaTime);
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
         }
         else
         {

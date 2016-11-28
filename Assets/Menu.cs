@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+=======
+﻿using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
 public class Menu : MonoBehaviour {
     public Button yourButton;
     void Start()
@@ -13,5 +20,10 @@ public class Menu : MonoBehaviour {
     void TaskOnClick()
     {
         Application.LoadLevel("01");
+<<<<<<< HEAD
     }
 }
+=======
+    }
+}
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c

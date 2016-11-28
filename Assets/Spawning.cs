@@ -12,9 +12,15 @@ public class Spawning : MonoBehaviour {
     public GameObject mesh;
 	void Start () {
 		new_unit = new GameObject[20];
+<<<<<<< HEAD
         //add(new Vector3(-1.5f, -0.5f, -1));
         //add(new Vector3(-1.5f, 0.5f, -1));
         //add(new Vector3(-1.5f, 1.5f, -1));
+=======
+        add(new Vector3(-1.5f, -0.5f, -1));
+        add(new Vector3(-1.5f, 0.5f, -1));
+        add(new Vector3(-1.5f, 1.5f, -1));
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
         add(new Vector3(-0.5f, -0.5f, -1));
     }
 	void Update () {

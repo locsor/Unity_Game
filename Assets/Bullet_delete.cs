@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
 public class Bullet_delete : MonoBehaviour {
@@ -31,12 +32,29 @@ public class Bullet_delete : MonoBehaviour {
 	void Update () {
 	
 	}
+=======
+﻿using UnityEngine;
+using System.Collections;
+
+public class Bullet_delete : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.transform.tag == "Wall" || other.transform.tag == "Enemy")
         {
             Destroy(gameObject);
         }
+<<<<<<< HEAD
         if(other.transform.tag == "Enemy")
         {
             GameObject blood_temp;
@@ -46,3 +64,7 @@ public class Bullet_delete : MonoBehaviour {
         }
     }
 }
+=======
+    }
+}
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302

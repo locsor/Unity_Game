@@ -12,10 +12,23 @@ public class Spawning : MonoBehaviour {
     public GameObject mesh;
 	void Start () {
 		new_unit = new GameObject[20];
+<<<<<<< HEAD
         //add(new Vector3(-1.5f, -0.5f, -1));
         //add(new Vector3(-1.5f, 0.5f, -1));
         //add(new Vector3(-1.5f, 1.5f, -1));
         add(new Vector3(-0.5f, -0.5f, -2));
+=======
+<<<<<<< HEAD
+        //add(new Vector3(-1.5f, -0.5f, -1));
+        //add(new Vector3(-1.5f, 0.5f, -1));
+        //add(new Vector3(-1.5f, 1.5f, -1));
+=======
+        add(new Vector3(-1.5f, -0.5f, -1));
+        add(new Vector3(-1.5f, 0.5f, -1));
+        add(new Vector3(-1.5f, 1.5f, -1));
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+        add(new Vector3(-0.5f, -0.5f, -1));
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
     }
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.E)) {

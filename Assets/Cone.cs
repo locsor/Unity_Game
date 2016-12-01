@@ -42,8 +42,23 @@ public class Cone : MonoBehaviour {
         int layerMask = 1 << 8;
         Vector2 temp;
         Vector2 tempPos = transform.position;
+<<<<<<< HEAD
         Quaternion spreadAngle1 = Quaternion.AngleAxis(0.1f, Vector3.forward);
         Quaternion spreadAngle2 = Quaternion.AngleAxis(-0.1f, Vector3.forward);
+=======
+<<<<<<< HEAD
+        Quaternion spreadAngle1 = Quaternion.AngleAxis(0.1f, Vector3.forward);
+        Quaternion spreadAngle2 = Quaternion.AngleAxis(-0.1f, Vector3.forward);
+=======
+<<<<<<< HEAD
+        Quaternion spreadAngle1 = Quaternion.AngleAxis(0.01f, Vector3.forward);
+        Quaternion spreadAngle2 = Quaternion.AngleAxis(-0.01f, Vector3.forward);
+=======
+        Quaternion spreadAngle1 = Quaternion.AngleAxis(0.1f, Vector3.forward);
+        Quaternion spreadAngle2 = Quaternion.AngleAxis(-0.1f, Vector3.forward);
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
         Vector2[] holder1 = new Vector2[5];
         Vector2[] holder2 = new Vector2[5];
         if (position != transform.position)
@@ -123,10 +138,25 @@ public class Cone : MonoBehaviour {
                 }
             }
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
         //for(int i = 0; i < abc.Count; i++)
         //{
         //    Debug.DrawLine(transform.position, abc[i].point1, Color.red);
         //}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
         origin.point1 = transform.position;
         abc.Add(origin);
         return abc;
@@ -162,6 +192,10 @@ public class Cone : MonoBehaviour {
     }
     void BuildMesh(List<points> abc)
     {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
         Vector2 check = transform.position;
         if (abc[abc.Count - 1].point1 == check)
         {
@@ -200,5 +234,50 @@ public class Cone : MonoBehaviour {
             }
             mf.transform.position = Vector3.zero;
         }
+<<<<<<< HEAD
+=======
+=======
+        int count = 0;
+        Vector3[] vertic = new Vector3[abc.Count];
+        int[] triangles = new int[abc.Count * 3];
+        Vector3[] normals = new Vector3[abc.Count];
+        Color[] colors = new Color[abc.Count];
+        for (int i = 0; i < abc.Count; i++)
+        {
+<<<<<<< HEAD
+            vertic[i] = abc[i].point1 * 40;
+=======
+            vertic[i] = abc[i].point1 * 20;
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
+            colors[i] = Color.black;
+        }
+        for(int i = 0; i < abc.Count - 2; i++)
+        {
+            triangles[count * 3] = abc.Count - 1;
+            triangles[1 + count * 3] = i;
+            triangles[2 + count * 3] = i + 1;
+            count++;
+        }
+        triangles[abc.Count * 3 - 3] = abc.Count - 2;
+        triangles[abc.Count * 3 - 2] = 0;
+        triangles[abc.Count * 3 - 1] = abc.Count - 1;
+        for (int i = 0; i < abc.Count; i++)
+        {
+            normals[i] = Vector3.up;
+        }
+<<<<<<< HEAD
+=======
+        Debug.Log(vertic.Length);
+        Debug.Log(normals.Length);
+>>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
+        mesh.vertices = vertic;
+        mesh.triangles = triangles;
+        mesh.normals = normals;
+        MeshFilter mf = transform.GetChild(1).GetComponent<MeshFilter>();
+        MeshRenderer mr = transform.GetChild(1).GetComponent<MeshRenderer>();
+        mf.mesh = mesh;
+        mf.transform.position = Vector3.zero;
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
     }
  }

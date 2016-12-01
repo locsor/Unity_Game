@@ -9,10 +9,14 @@ public class Enemy_Sense : MonoBehaviour
     public float bullet_speed;
     public int wait = 0;
     public bool justShot;
+<<<<<<< HEAD
     public int shotsFired = 0;
     private GameObject[] memory;
     public bool reloading = false;
     public float timePassed = 0;
+=======
+    private GameObject[] memory;
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
     // Use this for initialization
     void Start()
     {
@@ -47,6 +51,7 @@ public class Enemy_Sense : MonoBehaviour
         {
             if (justShot == false)
             {
+<<<<<<< HEAD
                 if (reloading == false)
                 {
                     Shoot(EnemiesInVision[0]);
@@ -63,11 +68,19 @@ public class Enemy_Sense : MonoBehaviour
                         timePassed = 0;
                     }
                 }
+=======
+                Shoot(EnemiesInVision[0]);
+                justShot = true;
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
             }
             if (justShot == true)
             {
                 wait++;
+<<<<<<< HEAD
                 if (wait == 10)
+=======
+                if (wait == 20)
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
                 {
                     justShot = false;
                     wait = 0;
@@ -77,6 +90,7 @@ public class Enemy_Sense : MonoBehaviour
     }
     void Shoot(GameObject target)
     {
+<<<<<<< HEAD
         shotsFired++;
         Vector3 shootDirection;
         float angle = Vector2.Angle(target.transform.position - transform.position, transform.position);
@@ -99,6 +113,16 @@ public class Enemy_Sense : MonoBehaviour
             reloading = true;
         }
     }
+=======
+        Vector3 shootDirection;
+        float angle = Vector2.Angle(target.transform.position - transform.position, transform.position);
+        shootDirection = target.transform.position;
+        shootDirection = shootDirection - transform.position;
+        shootDirection.z = 0.0f;
+        GameObject bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, angle))) as GameObject;
+        bulletInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(shootDirection.x * bullet_speed, shootDirection.y * bullet_speed);
+    } 
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
     void ISU(List<GameObject> ThatISee, GameObject[] everything, GameObject[] mem)
     {
         List<GameObject> isee = new List<GameObject>(); ;

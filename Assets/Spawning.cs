@@ -13,10 +13,29 @@ public class Spawning : MonoBehaviour {
     public GameObject mesh;
 	void Start () {
 		new_unit = new GameObject[20];
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
         //add(new Vector3(-1.5f, -0.5f, -1));
         //add(new Vector3(-1.5f, 0.5f, -1));
         //add(new Vector3(-1.5f, 1.5f, -1));
         add(new Vector3(-0.5f, -0.5f, -2));
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+        //add(new Vector3(-1.5f, -0.5f, -1));
+        //add(new Vector3(-1.5f, 0.5f, -1));
+        //add(new Vector3(-1.5f, 1.5f, -1));
+=======
+        add(new Vector3(-1.5f, -0.5f, -1));
+        add(new Vector3(-1.5f, 0.5f, -1));
+        add(new Vector3(-1.5f, 1.5f, -1));
+>>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
+        add(new Vector3(-0.5f, -0.5f, -1));
+>>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
+>>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
     }
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.E)) {
@@ -45,7 +64,10 @@ public class Spawning : MonoBehaviour {
         new_unit[unit_counter].GetComponent<Move>().unit_name = unit_counter;
         new_unit[unit_counter].GetComponent<PickUp>().container = container;
         new_unit[unit_counter].GetComponent<Move>().selection_script = selection;
+<<<<<<< HEAD
         new_unit[unit_counter].GetComponent<Enemy_Sense>().ammoCount = AmmoText;
+=======
+>>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
         new_unit[unit_counter].name = "Unit " + unit_counter;
         container.GetComponent<VariableStoreage>().target_arrx.Add(0f);
         container.GetComponent<VariableStoreage>().target_arry.Add(0f);

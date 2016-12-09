@@ -12,7 +12,8 @@ public class Shoot : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		if (Input.GetKeyDown (KeyCode.A)) {
 			bullet1 = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
 			rb.AddForce (transform.forward * thrust);

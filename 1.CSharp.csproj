@@ -107,6 +107,7 @@
     <Compile Include="Assets\VariableStoreage.cs" />
     <Compile Include="Assets\Variables.cs" />
     <Compile Include="Assets\Vis_Trigger.cs" />
+    <Compile Include="Assets\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />

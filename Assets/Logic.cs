@@ -28,30 +28,55 @@ public class Logic : MonoBehaviour {
     }
     void Update()
     {
-        U[0].Attack(GameObject.Find("Unit2"));
-        if (Input.GetButton("Fire1"))
+        //U[0].Attack(GameObject.Find("Enemy (1)"));
+        if (Input.GetButtonDown("Fire1"))
         {
-            Vector2 position = new Vector2(Mathf.FloorToInt(Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)).x), Mathf.FloorToInt((Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y))).y));
-            if (path.PosToMove(position))
+            Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
             {
-                U.Sort(delegate (NewBehaviourScript a, NewBehaviourScript b)
+                string name = hit.collider.gameObject.tag;
+                switch (name)
                 {
-                    return ((a.position() - new Vector2(position.x, position.y)).magnitude.CompareTo((b.position() - new Vector2(position.x, position.y)).magnitude));
-                });
-                List<Vector2> positions = path.ClosesedFreePoints(new Point(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y), 0, 0, null), U.Count);
-                //Debug.Log(positions.Count);
-                //  foreach (Vector2 kek in positions)
-                //  Debug.Log(kek);
-                List<Vector2> pth = new List<Vector2> { };
-                // Debug.Log(positions.Count + "BLYAD");
-                for (int i = 0; i < U.Count; ++i)
+                    case "Enemy":
+                        foreach (NewBehaviourScript kek in U)
+                        {
+                            kek.Attack(hit.collider.gameObject);
+                            kek.aim = hit.collider.gameObject;
+                        }
+                        break;
+                    case "YourUnit":
+                        if (!Input.GetButton("Left Ctrl"))
+                            U = new List<NewBehaviourScript> { hit.collider.gameObject.GetComponent<NewBehaviourScript>() };
+                        else
+                            if (U.Contains(hit.collider.gameObject.GetComponent<NewBehaviourScript>()))
+                            U.Remove(hit.collider.gameObject.GetComponent<NewBehaviourScript>());
+                        else
+                            U.Add(hit.collider.gameObject.GetComponent<NewBehaviourScript>());
+                        break;
+                }
+            }
+            else
+            {
+                Vector2 position = new Vector2(Mathf.FloorToInt(Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)).x), Mathf.FloorToInt((Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y))).y));
+                if (path.PosToMove(position))
                 {
-                    //  Debug.Log(U[i].ToString());
-                    pth = path.Path(U[i].transform.position, positions[i]);
-                    Debug.Log(pth.Count);
-                    for (int j = 0; j < pth.Count; ++j)
-                        Debug.Log(i + ": " + j + " " + pth[j]);
-                    U[i].setPath(pth);
+                    U.Sort(delegate (NewBehaviourScript a, NewBehaviourScript b)
+                    {
+                        return ((a.position() - new Vector2(position.x, position.y)).magnitude.CompareTo((b.position() - new Vector2(position.x, position.y)).magnitude));
+                    });
+                    List<Vector2> positions = path.ClosesedFreePoints(new Point(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.y), 0, 0, null), U.Count);
+                    List<Vector2> pth = new List<Vector2> { };
+                    for (int i = 0; i < U.Count; ++i)
+                    {
+                        pth = path.Path(U[i].transform.position, positions[i]);
+                        Debug.Log(pth.Count);
+                        for (int j = 0; j < pth.Count; ++j)
+                            Debug.Log(i + ": " + j + " " + pth[j]);
+                        U[i].setPath(pth);
+                    }
                 }
             }
         }

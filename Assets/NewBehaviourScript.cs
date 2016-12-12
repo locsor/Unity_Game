@@ -5,45 +5,45 @@ using System.Collections.Generic;
 public class NewBehaviourScript : MonoBehaviour
 {
     public float Speed = 1.0f;
-    public GameObject bullet;
     public int player;
-    public float range = 5.0f;
+    public float range = 10.0f;
     public CharacterController CC;
     public List<Vector2> Path;
     private bool starterTimer = false;
-    private float time = 0;
+    private float time = 0, timer1 = 0, timer2 = 0;
     private PathFinding P;
+    public GameObject aim;
+    public GameObject Weapon;
+    public Weapon wep;
+    public float health = 100;
 
+    private float rechargeTime = 0.1f;
+    private int magazineSize = 12;
+    private float reloadTime = 0.1f;
+    private int patrons = 5;
+    
     void Start()
     {
+        aim = null;
         CC = GetComponent<CharacterController>();
         Path = new List<Vector2> {};
         P = GameObject.Find("PathFindingMan").GetComponent<PathFinding>();
+        Weapon = transform.FindChild("Weapon").gameObject;
+        wep = Weapon.GetComponent<Weapon>();
+    }
+    void FixedUpdate()
+    {
+        if (health < 0)
+        {
+            Destroy(gameObject);
+        }
+        //CC.Move(Vector2.right * 0.1f);
+        Move();
+        Attack(aim);
+        Rotate(aim);//TO DO: make this function 
     }
     void  Update()
     {
-        //RaycastHit2D hit = new RaycastHit2D();
-        //for (int i = 0; i < 360; i += 36)
-        //{
-        //    if (Physics2D.Raycast(CC.transform.position, new Vector2(Mathf.Cos(i * 0.0174533333f), Mathf.Sin(i * 0.0174533333f)), 0.1f))
-        //    {
-        //        hit = Physics2D.Raycast(CC.transform.position, new Vector2(Mathf.Cos(i * 0.0174533333f), Mathf.Sin(i * 0.0174533333f)), 0.1f);
-        //        CC.Move(-(new Vector2(Mathf.Cos(i * 0.0174533333f), Mathf.Sin(i * 0.0174533333f)).normalized) * Speed);
-        //    }
-        //}
-        //if (!starterTimer)
-            Move();
-        //else
-        //{
-        //    if (time < 0.1f)
-        //        time += Time.deltaTime;
-        //    else
-        //    {
-        //        starterTimer = false;
-        //        time = 0;
-        //    }
-        //}
-        Debug.Log(ToString() +" asd "+ Path[0]);
     }
     void Comands()
     {
@@ -85,22 +85,13 @@ public class NewBehaviourScript : MonoBehaviour
     }
     public void Attack(GameObject enemy)
     {
-        if (Range(enemy) <= range)
-        {
-            Vector2 from = transform.position;
-            Vector2 dir = -transform.position + enemy.transform.position;
-            GameObject bullet1 = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            bullet1.transform.Rotate(0,0,0);
-            Rigidbody2D rb = bullet1.GetComponent<Rigidbody2D>();
-            rb.velocity =  dir.normalized * 10;
-            
-        }
+        wep.aim = enemy;
     }
     public float Range(GameObject aim)
     {
         Vector2 from = transform.position;
         Vector2 dir = - transform.position + aim.transform.position;
-        if (!Physics2D.Raycast(from, dir, dir.magnitude))
+        if (!Physics2D.Raycast(from, dir, dir.magnitude - 1.0f))
             return (transform.position - aim.transform.position).magnitude;
         else return float.MaxValue - 10f;
     }
@@ -108,21 +99,26 @@ public class NewBehaviourScript : MonoBehaviour
     {
 
     }
-
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        //Bounds b = hit.collider.bounds;
-        //List<Vector2> l1 = P.Path(transform.position, b.center + b.extents);
-        //List<Vector2> l2 = P.Path(b.center + b.extents, b.center + new Vector3(b.extents.x, b.extents.y));
-        //List<Vector2> l3 = P.Path(new Vector3(b.extents.x, b.extents.y), b.center + b.extents);
-        ////Path.InsertRange(0, );
-        //CC.Move(-Path[0].normalized * Time.deltaTime);
-        //starterTimer = true;
         if (hit.gameObject.tag == "StaticObjectWithCollider")
         {
             CC.Move(-CC.velocity * Time.deltaTime);
         }
-    } 
+    }
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "Bullet")
+            Destroy(col.gameObject);
+    }
+    void Rotate(GameObject aim)
+    {
+       // Weapon.transform.rotation = Quaternion.LookRotation(aim.transform.position - Weapon.transform.position);
+    }
+    public void GetBullet(BulletBehavior beh)
+    {
+        health = health - beh.damage;
+    }
 }
 
 

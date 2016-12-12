@@ -16,6 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject Weapon;
     public Weapon wep;
     public float health = 100;
+    private Logic logic;
 
     private float rechargeTime = 0.1f;
     private int magazineSize = 12;
@@ -28,19 +29,24 @@ public class NewBehaviourScript : MonoBehaviour
         CC = GetComponent<CharacterController>();
         Path = new List<Vector2> {};
         P = GameObject.Find("PathFindingMan").GetComponent<PathFinding>();
+        logic = GameObject.Find("GameLogic").GetComponent<Logic>();
         Weapon = transform.FindChild("Weapon").gameObject;
         wep = Weapon.GetComponent<Weapon>();
     }
     void FixedUpdate()
     {
-        if (health < 0)
-        {
-            Destroy(gameObject);
-        }
         //CC.Move(Vector2.right * 0.1f);
         Move();
-        Attack(aim);
-        Rotate(aim);//TO DO: make this function 
+        if (Range(aim) <= range)
+        {
+            Attack(aim);
+        }
+        else
+        {
+            aim = null;
+            Debug.Log("asdasdasd");
+        }
+        Rotate();//TO DO: make this function 
     }
     void  Update()
     {
@@ -89,11 +95,14 @@ public class NewBehaviourScript : MonoBehaviour
     }
     public float Range(GameObject aim)
     {
-        Vector2 from = transform.position;
-        Vector2 dir = - transform.position + aim.transform.position;
-        if (!Physics2D.Raycast(from, dir, dir.magnitude - 1.0f))
-            return (transform.position - aim.transform.position).magnitude;
-        else return float.MaxValue - 10f;
+        if (aim != null)
+        {
+            Vector2 from = transform.position;
+            Vector2 dir = -transform.position + aim.transform.position;
+            if (!Physics2D.Raycast(from, dir, dir.magnitude - 1.0f))
+                return (transform.position - aim.transform.position).magnitude;
+        }
+        return float.MaxValue - 10f;
     }
     public void See()
     {
@@ -111,13 +120,34 @@ public class NewBehaviourScript : MonoBehaviour
         if (col.gameObject.tag == "Bullet")
             Destroy(col.gameObject);
     }
-    void Rotate(GameObject aim)
+    void Rotate()
     {
-       // Weapon.transform.rotation = Quaternion.LookRotation(aim.transform.position - Weapon.transform.position);
-    }
+        if (Path.Count >= 1)
+        {
+            if (Vector2.Angle(Vector2.right, Path[0] - new Vector2(transform.position.x, transform.position.y)) <= 90)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
+        }
+        if (aim != null)
+        {
+            if (Vector2.Angle(Vector2.right, new Vector2(aim.transform.position.x, aim.transform.position.y) - new Vector2(transform.position.x, transform.position.y)) <= 90)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
+            var newRotation = Quaternion.LookRotation(aim.transform.position - wep.gameObject.transform.position, Vector3.forward);
+            newRotation.x = 0.0f;
+            newRotation.y = 0.0f;
+            wep.gameObject.transform.rotation = newRotation;
+        }
+        }
     public void GetBullet(BulletBehavior beh)
     {
         health = health - beh.damage;
+        if (health < 0)
+        {
+            logic.DestoyedObject(gameObject);
+        }
     }
 }
 

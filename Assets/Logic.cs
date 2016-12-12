@@ -72,13 +72,23 @@ public class Logic : MonoBehaviour {
                     for (int i = 0; i < U.Count; ++i)
                     {
                         pth = path.Path(U[i].transform.position, positions[i]);
-                        Debug.Log(pth.Count);
-                        for (int j = 0; j < pth.Count; ++j)
-                            Debug.Log(i + ": " + j + " " + pth[j]);
+                        //Debug.Log(pth.Count);
+                       // for (int j = 0; j < pth.Count; ++j)
+                           // Debug.Log(i + ": " + j + " " + pth[j]);
                         U[i].setPath(pth);
                     }
                 }
             }
         }
+    }
+    public void DestoyedObject(GameObject obj)
+    {
+        Destroy(obj);
+        foreach (NewBehaviourScript kek in U)
+            if (kek.aim == obj)
+                kek.aim = null;
+        foreach (NewBehaviourScript kek in E)
+            if (kek.aim == obj)
+                kek.aim = null;
     }
 }

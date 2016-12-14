@@ -103,7 +103,9 @@
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
     <Compile Include="Assets\SelectUnits.cs" />
+    <Compile Include="Assets\SelectionRecatangle.cs" />
     <Compile Include="Assets\Shoot.cs" />
+    <Compile Include="Assets\Spawning.cs" />
     <Compile Include="Assets\Target.cs" />
     <Compile Include="Assets\VariableStoreage.cs" />
     <Compile Include="Assets\Variables.cs" />

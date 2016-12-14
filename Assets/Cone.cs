@@ -227,8 +227,8 @@ public class Cone : MonoBehaviour {
             {
                 normals[i] = Vector3.up;
             }
-            Debug.Log(vertic.Length);
-            Debug.Log(normals.Length);
+            //Debug.Log(vertic.Length);
+            //Debug.Log(normals.Length);
             mesh.vertices = vertic;
             mesh.triangles = triangles;
             mesh.normals = normals;

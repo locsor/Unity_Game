@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class Logic : MonoBehaviour {
 
-    
-    private List<NewBehaviourScript> U;
+    public GameObject Selector;
+    public List<NewBehaviourScript> U;
     private List<NewBehaviourScript> E;
+    private NewBehaviourScript[] U2 = new NewBehaviourScript[3];
     private PathFinding path;
     private delegate void G(List<Vector2> P);
     private delegate List<List<Vector2>> P(List<Vector2> CurrentPoition, Vector2 PositionToMove);
@@ -21,15 +22,37 @@ public class Logic : MonoBehaviour {
         E.Add(GameObject.Find("Enemy (1)").GetComponent<NewBehaviourScript>());
         E.Add(GameObject.Find("Enemy (2)").GetComponent<NewBehaviourScript>());
         E.Add(GameObject.Find("Enemy (3)").GetComponent<NewBehaviourScript>());
-        U.Add(GameObject.Find("Unit").GetComponent<NewBehaviourScript>());
-        U.Add(GameObject.Find("Unit1").GetComponent<NewBehaviourScript>());
-        U.Add(GameObject.Find("Unit2").GetComponent<NewBehaviourScript>());
+        //U.Add(GameObject.Find("Unit").GetComponent<NewBehaviourScript>());
+        //U.Add(GameObject.Find("Unit1").GetComponent<NewBehaviourScript>());
+        //U.Add(GameObject.Find("Unit2").GetComponent<NewBehaviourScript>());
+        U2[0] = (GameObject.Find("Unit").GetComponent<NewBehaviourScript>());
+        U2[1] = (GameObject.Find("Unit1").GetComponent<NewBehaviourScript>());
+        U2[2] = (GameObject.Find("Unit2").GetComponent<NewBehaviourScript>());
         path = GameObject.Find("PathFindingMan").GetComponent<PathFinding>();
     }
     void Update()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            if (Selector.GetComponent<Collider2D>().bounds.Contains(U2[i].gameObject.transform.position) && !U.Contains(U2[i]))
+            {
+                Debug.Log('2');
+                //selection_script.GetComponent<Selection>().unit = 0;
+                //container.GetComponent<VariableStoreage>().selected_units.Add(gameObject);
+                U.Add(U2[i]);
+                U2[i].transform.Find("Circle").GetComponent<Renderer>().enabled = true;
+            }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            U.Clear();
+            for (int i = 0; i < 3; i++)
+            {
+                U2[i].transform.Find("Circle").GetComponent<Renderer>().enabled = false;
+            }
+        }
         //U[0].Attack(GameObject.Find("Enemy (1)"));
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire2"))
         {
             Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);

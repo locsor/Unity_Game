@@ -76,6 +76,7 @@
     <Compile Include="Assets\Continue.cs" />
     <Compile Include="Assets\CoordinatesForStorage.cs" />
     <Compile Include="Assets\CorCor.cs" />
+    <Compile Include="Assets\Enemy_Sense.cs" />
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\Example.cs" />
     <Compile Include="Assets\Fill.cs" />

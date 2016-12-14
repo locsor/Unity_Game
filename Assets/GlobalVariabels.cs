@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class GlobalVariabels : MonoBehaviour {
-
+using System.Collections.Generic;
+public class GlobalVariabels : MonoBehaviour
+{
+    public List<GameObject> spawned_blood = new List<GameObject>();
     public int weight, height;
-	void Start () {
+    void Start()
+    {
         weight = 100;
         height = 100;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

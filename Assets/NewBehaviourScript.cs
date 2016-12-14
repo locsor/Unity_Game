@@ -13,12 +13,12 @@ public class NewBehaviourScript : MonoBehaviour
     private bool starterTimer = false;
     private float time = 0;
     private PathFinding P;
+
     void Start()
     {
         CC = GetComponent<CharacterController>();
         Path = new List<Vector2> {};
         P = GameObject.Find("PathFindingMan").GetComponent<PathFinding>();
-        Move();
     }
     void  Update()
     {
@@ -32,7 +32,7 @@ public class NewBehaviourScript : MonoBehaviour
         //    }
         //}
         //if (!starterTimer)
-        Move();
+            Move();
         //else
         //{
         //    if (time < 0.1f)
@@ -43,7 +43,7 @@ public class NewBehaviourScript : MonoBehaviour
         //        time = 0;
         //    }
         //}
-        //Debug.Log(ToString() +" asd "+ Path[0]);
+        Debug.Log(ToString() +" asd "+ Path[0]);
     }
     void Comands()
     {
@@ -83,19 +83,19 @@ public class NewBehaviourScript : MonoBehaviour
     {
         return transform.position;
     }
-    //public void Attack(GameObject enemy)
-    //{
-    //    if (Range(enemy) <= range)
-    //    {
-    //        Vector2 from = transform.position;
-    //        Vector2 dir = -transform.position + enemy.transform.position;
-    //        GameObject bullet1 = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-    //        bullet1.transform.Rotate(0,0,0);
-    //        Rigidbody2D rb = bullet1.GetComponent<Rigidbody2D>();
-    //        rb.velocity =  dir.normalized * 10;
+    public void Attack(GameObject enemy)
+    {
+        if (Range(enemy) <= range)
+        {
+            Vector2 from = transform.position;
+            Vector2 dir = -transform.position + enemy.transform.position;
+            GameObject bullet1 = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
+            bullet1.transform.Rotate(0,0,0);
+            Rigidbody2D rb = bullet1.GetComponent<Rigidbody2D>();
+            rb.velocity =  dir.normalized * 10;
             
-    //    }
-    //}
+        }
+    }
     public float Range(GameObject aim)
     {
         Vector2 from = transform.position;
@@ -122,7 +122,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             CC.Move(-CC.velocity * Time.deltaTime);
         }
-    }
+    } 
 }
 
 

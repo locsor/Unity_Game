@@ -77,7 +77,6 @@ public class Cone : MonoBehaviour {
             for (int j = 0; j < holder1.Length - 1; j++)
             {
                 RaycastHit2D hit = Physics2D.Linecast(transform.position, holder1[j], layerMask);
-                //Debug.DrawRay(transform.position, holder1[j]);
                 hitpoint.point1 = hit.point;
                 if (hit.point == holder1[j] && !pointsL.Contains(hitpoint))
                 {
@@ -124,14 +123,10 @@ public class Cone : MonoBehaviour {
                 }
             }
         }
-        //for (int i = 0; i < abc.Count; i++)
+        //for(int i = 0; i < abc.Count; i++)
         //{
-        //    //Debug.Log(abc[i].point1);
+        //    Debug.DrawLine(transform.position, abc[i].point1, Color.red);
         //}
-        for (int i = 0; i < abc.Count; i++)
-        {
-            //Debug.DrawLine(transform.position, abc[i].point1, Color.red);
-        }
         origin.point1 = transform.position;
         abc.Add(origin);
         return abc;
@@ -177,7 +172,7 @@ public class Cone : MonoBehaviour {
             Color[] colors = new Color[abc.Count];
             for (int i = 0; i < abc.Count; i++)
             {
-                vertic[i] = abc[i].point1 * 2;
+                vertic[i] = abc[i].point1 * 40;
             }
             for (int i = 0; i < abc.Count - 2; i++)
             {
@@ -196,8 +191,8 @@ public class Cone : MonoBehaviour {
             mesh.vertices = vertic;
             mesh.triangles = triangles;
             mesh.normals = normals;
-            MeshFilter mf = transform.GetChild(0).GetComponent<MeshFilter>();
-            MeshRenderer mr = transform.GetChild(0).GetComponent<MeshRenderer>();
+            MeshFilter mf = transform.GetChild(1).GetComponent<MeshFilter>();
+            MeshRenderer mr = transform.GetChild(1).GetComponent<MeshRenderer>();
             mf.mesh = mesh;
             if (mf.transform.position != transform.position)
             {

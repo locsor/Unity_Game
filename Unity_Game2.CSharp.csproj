@@ -69,52 +69,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
+    <Compile Include="Assets\BulletBehavior.cs" />
     <Compile Include="Assets\Bullet_delete.cs" />
     <Compile Include="Assets\ButtonToUnit.cs" />
     <Compile Include="Assets\Cone.cs" />
     <Compile Include="Assets\Continue.cs" />
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
-    <Compile Include="Assets\Bullet_delete.cs" />
-    <Compile Include="Assets\Cone.cs" />
-    <Compile Include="Assets\Continue.cs" />
-=======
-    <Compile Include="Assets\Cone.cs" />
->>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
->>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
->>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
     <Compile Include="Assets\CoordinatesForStorage.cs" />
+    <Compile Include="Assets\CorCor.cs" />
     <Compile Include="Assets\Enemy_Sense.cs" />
+    <Compile Include="Assets\EventManager.cs" />
+    <Compile Include="Assets\Example.cs" />
     <Compile Include="Assets\Fill.cs" />
+    <Compile Include="Assets\GlobalVariabels.cs" />
     <Compile Include="Assets\Lee.cs" />
+    <Compile Include="Assets\Logic.cs" />
     <Compile Include="Assets\MainCameraMovingScript.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Memory_Sense.cs" />
     <Compile Include="Assets\Menu.cs" />
-=======
-<<<<<<< HEAD
-    <Compile Include="Assets\Memory_Sense.cs" />
-    <Compile Include="Assets\Menu.cs" />
-=======
-<<<<<<< HEAD
-    <Compile Include="Assets\Memory_Sense.cs" />
-    <Compile Include="Assets\Menu.cs" />
-=======
-<<<<<<< HEAD
-    <Compile Include="Assets\Menu.cs" />
-=======
->>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
->>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
->>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
->>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
-    <Compile Include="Assets\Move.cs" />
     <Compile Include="Assets\Movement.cs" />
+    <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\PathFinding.cs" />
     <Compile Include="Assets\Pause.cs" />
     <Compile Include="Assets\PickUp.cs" />
@@ -129,35 +102,19 @@
     <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
-    <Compile Include="Assets\Selection.cs" />
-    <Compile Include="Assets\SelectionRecatangle.cs" />
+    <Compile Include="Assets\SelectUnits.cs" />
     <Compile Include="Assets\Shoot.cs" />
-    <Compile Include="Assets\Spawning.cs" />
     <Compile Include="Assets\Target.cs" />
     <Compile Include="Assets\VariableStoreage.cs" />
     <Compile Include="Assets\Variables.cs" />
     <Compile Include="Assets\Vis_Trigger.cs" />
+    <Compile Include="Assets\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-<<<<<<< HEAD
     <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
-=======
-<<<<<<< HEAD
-    <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
-=======
-<<<<<<< HEAD
-    <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
-=======
-<<<<<<< HEAD
-    <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
-=======
->>>>>>> 245d8fa0eb5068e123c9dcb270502275dffc82b9
->>>>>>> 54196b18866191fde8018fcfcdc0d22de1d9576c
->>>>>>> f7f9e00c37d4bf67c3bb83f2138e54e1be5d3302
->>>>>>> c9fa15492ef5482d2d9f2e875b473434d9719d27
     <None Include="Assets\UnityVC\StandardSpecularVC.shader" />
     <None Include="Assets\UnityVC\StandardVC.shader" />
     <None Include="Assets\UnityVC\UnityVC.cginc" />

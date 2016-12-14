@@ -172,7 +172,7 @@ public class Cone : MonoBehaviour {
             Color[] colors = new Color[abc.Count];
             for (int i = 0; i < abc.Count; i++)
             {
-                vertic[i] = abc[i].point1 * 40;
+                vertic[i] = abc[i].point1;
             }
             for (int i = 0; i < abc.Count - 2; i++)
             {
@@ -209,8 +209,8 @@ public class Cone : MonoBehaviour {
             Color[] colors = new Color[abc.Count];
             for (int i = 0; i < abc.Count; i++)
             {
-                vertic[i] = abc[i].point1 * 40;
-                vertic[i] = abc[i].point1 * 20;
+                vertic[i] = abc[i].point1;
+                vertic[i] = abc[i].point1;
                 colors[i] = Color.black;
             }
             for (int i = 0; i < abc.Count - 2; i++)

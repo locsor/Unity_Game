@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class GlobalVariabels : MonoBehaviour {
-
+    public List<GameObject> spawned_blood = new List<GameObject>();
     public int weight, height;
 	void Start () {
         weight = 100;

@@ -36,9 +36,10 @@ public class Enemy_Sense : MonoBehaviour
             //Debug.Log("faf");
             Vector2 pos2D = enemies[i].transform.position;
             RaycastHit2D hit = Physics2D.Linecast(transform.position, enemies[i].transform.position, layerMask1);
-            //Debug.DrawLine(transform.position, enemies[i].transform.position, Color.red);
+            Debug.DrawLine(transform.position, hit.point, Color.red);
             if (!EnemiesInVision.Contains(enemies[i]) && enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))
             {
+                Debug.Log("!!!!!!");
                 EnemiesInVision.Add(enemies[i]);
             }   
             else if(!enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))

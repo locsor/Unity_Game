@@ -36,7 +36,6 @@ public class Logic : MonoBehaviour {
         {
             if (Selector.GetComponent<Collider2D>().bounds.Contains(U2[i].gameObject.transform.position) && !U.Contains(U2[i]))
             {
-                Debug.Log('2');
                 //selection_script.GetComponent<Selection>().unit = 0;
                 //container.GetComponent<VariableStoreage>().selected_units.Add(gameObject);
                 U.Add(U2[i]);

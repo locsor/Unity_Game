@@ -44,7 +44,6 @@ public class NewBehaviourScript : MonoBehaviour
         else
         {
             aim = null;
-            Debug.Log("asdasdasd");
         }
         Rotate();//TO DO: make this function 
     }
@@ -125,14 +124,18 @@ public class NewBehaviourScript : MonoBehaviour
         if (Path.Count >= 1)
         {
             if (Vector2.Angle(Vector2.right, Path[0] - new Vector2(transform.position.x, transform.position.y)) <= 90)
-                transform.localScale = new Vector3(-1, 1, 1);
+            {
+                //transform.localScale = new Vector3(-1, 1, 1);
+            }
             else
                 transform.localScale = new Vector3(1, 1, 1);
         }
         if (aim != null)
         {
             if (Vector2.Angle(Vector2.right, new Vector2(aim.transform.position.x, aim.transform.position.y) - new Vector2(transform.position.x, transform.position.y)) <= 90)
-                transform.localScale = new Vector3(-1, 1, 1);
+            {
+                //transform.localScale = new Vector3(-1, 1, 1);
+            }
             else
                 transform.localScale = new Vector3(1, 1, 1);
             var newRotation = Quaternion.LookRotation(aim.transform.position - wep.gameObject.transform.position, Vector3.forward);

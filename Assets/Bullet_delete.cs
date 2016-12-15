@@ -31,15 +31,12 @@ public class Bullet_delete : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.transform.tag);
         if (other.transform.tag == "StaticObjectWithCollider" || other.transform.name == "Soul")
         {
-            Debug.Log("123");
             Destroy(gameObject);
         }
         if (other.transform.name == "Soul")
         {
-            Debug.Log('1');
             if (globalVar.GetComponent<GlobalVariabels>().spawned_blood.Count == 100)
             {
                 globalVar.GetComponent<GlobalVariabels>().spawned_blood.RemoveAt(0);

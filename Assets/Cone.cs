@@ -199,6 +199,7 @@ public class Cone : MonoBehaviour {
                 mf.transform.position = transform.position;
             }
             mf.transform.position = Vector3.zero;
+            mf.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
@@ -210,7 +211,7 @@ public class Cone : MonoBehaviour {
             for (int i = 0; i < abc.Count; i++)
             {
                 vertic[i] = abc[i].point1;
-                vertic[i] = abc[i].point1;
+                vertic[i] = abc[i].point1 * 2;
                 colors[i] = Color.black;
             }
             for (int i = 0; i < abc.Count - 2; i++)
@@ -235,7 +236,12 @@ public class Cone : MonoBehaviour {
             MeshFilter mf = transform.GetChild(1).GetComponent<MeshFilter>();
             MeshRenderer mr = transform.GetChild(1).GetComponent<MeshRenderer>();
             mf.mesh = mesh;
+            if (mf.transform.position != transform.position)
+            {
+                mf.transform.position = transform.position;
+            }
             mf.transform.position = Vector3.zero;
+            mf.transform.localScale = new Vector3(1, 1, 1);
         }
     }
  }

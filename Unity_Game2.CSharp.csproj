@@ -81,6 +81,7 @@
     <Compile Include="Assets\Example.cs" />
     <Compile Include="Assets\Fill.cs" />
     <Compile Include="Assets\GlobalVariabels.cs" />
+    <Compile Include="Assets\Health.cs" />
     <Compile Include="Assets\Lee.cs" />
     <Compile Include="Assets\Logic.cs" />
     <Compile Include="Assets\MainCameraMovingScript.cs" />

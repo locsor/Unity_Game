@@ -46,6 +46,7 @@ public class Bullet_delete : MonoBehaviour
             blood_temp = blood[(int)sprite_num];
             GameObject bloodS = Instantiate(blood_temp, other.transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
             globalVar.GetComponent<GlobalVariabels>().spawned_blood.Add(bloodS);
+            other.transform.parent.GetComponent<NewBehaviourScript>().health -= 50;
         }
     }
 }

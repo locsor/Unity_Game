@@ -18,6 +18,7 @@ public class Enemy_Sense : MonoBehaviour
     public float timePassed = 0;
     private GameObject targ;
     private Vector3 click;
+    public GameObject GV;
     private Camera cam = Camera.main;
     void Start()
     {
@@ -31,6 +32,10 @@ public class Enemy_Sense : MonoBehaviour
         //EnemiesInVision.Clear();
         int layerMask1 = 1 << 8 | 1 << 9;
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(EnemiesInVision.Contains(null))
+        {
+            EnemiesInVision.Remove(null);
+        }
         for (int i = 0; i < enemies.Length; i++)
         {
             //Debug.Log("faf");
@@ -41,14 +46,18 @@ public class Enemy_Sense : MonoBehaviour
             {
                 Debug.Log("!!!!!!");
                 EnemiesInVision.Add(enemies[i]);
-            }   
-            else if(!enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))
+                GV.GetComponent<GlobalVariabels>().visible_enemies.Add(enemies[i]);
+            }
+            else if (!enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))
+            {
                 EnemiesInVision.Remove(enemies[i]);
+                //GV.GetComponent<GlobalVariabels>().visible_enemies.Remove(enemies[i]);
+            }
 
         }
         if (EnemiesInVision.ToArray() != memory)
         {
-            ISU(EnemiesInVision, enemies, memory);
+            ISU(GV.GetComponent<GlobalVariabels>().visible_enemies, enemies, memory);
             memory = EnemiesInVision.ToArray();
         }
         if(!selectedTarg)
@@ -71,13 +80,16 @@ public class Enemy_Sense : MonoBehaviour
             {
                 if (reloading == false)
                 {
-                    //Debug.Log('5');
-                    Shoot(targ);
-                    justShot = true;
-                    Reload();
+                    if (targ != null)
+                    {
+                        Shoot(targ);
+                        justShot = true;
+                        Reload();
+                    }
                 }
                 else if(reloading == true)
                 {
+                    Debug.Log('5');
                     timePassed += Time.deltaTime;
                     if(timePassed >= 2)
                     {
@@ -90,7 +102,7 @@ public class Enemy_Sense : MonoBehaviour
             if (justShot == true)
             {
                 wait++;
-                if (wait == 10)
+                if (wait == 5)
                 {
                     justShot = false;
                     wait = 0;
@@ -112,16 +124,16 @@ public class Enemy_Sense : MonoBehaviour
         {
             angle = 180 - angle;
         }
-        float offset_angle = Random.Range(-5f, 5f);
+        float offset_angle = Random.Range(-0.5f, 0.5f);
         GameObject bulletInstance = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, angle))) as GameObject;
         bulletInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(shootDirection.x * bullet_speed + offset_angle, shootDirection.y * bullet_speed + offset_angle);
         //transform.GetChild(2).transform.rotation = Quaternion.Euler(new Vector3(0, 180, -angle+8f));
     } 
     void Reload()
     {
-        //Debug.Log(6);
         if (shotsFired >= 20)
         {
+            Debug.Log(6);
             reloading = true;
         }
     }
@@ -130,12 +142,15 @@ public class Enemy_Sense : MonoBehaviour
         List<GameObject> isee = new List<GameObject>(); ;
         for (int i = 0; i < everything.Length; i++)
         {
-            if(!ThatISee.Contains(everything[i]))
+            if (!ThatISee.Contains(everything[i]))
             {
                 everything[i].GetComponent<SpriteRenderer>().enabled = false;
             }
-            else if(ThatISee.Contains(everything[i]))
+            else if (ThatISee.Contains(everything[i]))
+            {
+                Debug.Log("42112");
                 everything[i].GetComponent<SpriteRenderer>().enabled = true;
+            }
         }
     }
 }

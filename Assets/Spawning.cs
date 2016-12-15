@@ -18,7 +18,7 @@ public class Spawning : MonoBehaviour {
 			target = cam.ScreenToWorldPoint(Input.mousePosition);
 			//container.GetComponent<VariableStoreage> ().NumberOfUnits++;
 			//unit_counter = container.GetComponent<VariableStoreage> ().NumberOfUnits;
-			GameObject spawn = Instantiate (unit, new Vector3 (Mathf.Round(target.x), Mathf.Round(target.y), -1), Quaternion.identity) as GameObject;
+			GameObject spawn = Instantiate (unit, new Vector3 (Mathf.Round(target.x), Mathf.Round(target.y), 0), Quaternion.identity) as GameObject;
             spawn.GetComponent<NewBehaviourScript>().CC = spawn.GetComponent<CharacterController>();
             spawn.GetComponent<NewBehaviourScript>().Weapon = weapon;
             //new_unit[unit_counter].GetComponent<Move>().cam = cam;

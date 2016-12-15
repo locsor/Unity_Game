@@ -49,6 +49,10 @@ public class NewBehaviourScript : MonoBehaviour
     }
     void  Update()
     {
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
     void Comands()
     {

@@ -27,25 +27,27 @@ public class Logic : MonoBehaviour {
         //U.Add(GameObject.Find("Unit2").GetComponent<NewBehaviourScript>());
         U2[0] = (GameObject.Find("Unit").GetComponent<NewBehaviourScript>());
         U2[1] = (GameObject.Find("Unit1").GetComponent<NewBehaviourScript>());
-        U2[2] = (GameObject.Find("Unit2").GetComponent<NewBehaviourScript>());
         path = GameObject.Find("PathFindingMan").GetComponent<PathFinding>();
     }
     void Update()
     {
-        for (int i = 0; i < 3; i++)
+        
+        for (int i = 0; i < 2; i++)
         {
-            if (Selector.GetComponent<Collider2D>().bounds.Contains(U2[i].gameObject.transform.position) && !U.Contains(U2[i]))
+            if (Selector.GetComponent<BoxCollider2D>().bounds.Contains(U2[i].gameObject.transform.position) && !U.Contains(U2[i]))
             {
+                Debug.Log('1');
                 //selection_script.GetComponent<Selection>().unit = 0;
                 //container.GetComponent<VariableStoreage>().selected_units.Add(gameObject);
                 U.Add(U2[i]);
                 U2[i].transform.Find("Circle").GetComponent<Renderer>().enabled = true;
             }
         }
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0) && U.Count != 0)
+        { 
+            Debug.Log('1');
             U.Clear();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 U2[i].transform.Find("Circle").GetComponent<Renderer>().enabled = false;
             }

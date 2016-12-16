@@ -199,7 +199,6 @@ public class Cone : MonoBehaviour {
                 mf.transform.position = transform.position;
             }
             mf.transform.position = Vector3.zero;
-            mf.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
@@ -241,7 +240,6 @@ public class Cone : MonoBehaviour {
                 mf.transform.position = transform.position;
             }
             mf.transform.position = Vector3.zero;
-            mf.transform.localScale = new Vector3(1, 1, 1);
         }
     }
  }

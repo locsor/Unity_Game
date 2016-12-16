@@ -42,22 +42,20 @@ public class Enemy_Sense : MonoBehaviour
             Vector2 pos2D = enemies[i].transform.position;
             RaycastHit2D hit = Physics2D.Linecast(transform.position, enemies[i].transform.position, layerMask1);
             Debug.DrawLine(transform.position, hit.point, Color.red);
-            if (!EnemiesInVision.Contains(enemies[i]) && enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))
+            //Debug.Log(enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point));
+            if (!EnemiesInVision.Contains(enemies[i]) && enemies[i].GetComponentInChildren<BoxCollider2D>().bounds.Contains(hit.transform.position))
             {
-                Debug.Log("!!!!!!");
                 EnemiesInVision.Add(enemies[i]);
-                GV.GetComponent<GlobalVariabels>().visible_enemies.Add(enemies[i]);
             }
-            else if (!enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.point))
+            else if (!enemies[i].GetComponent<CharacterController>().bounds.Contains(hit.transform.position))
             {
                 EnemiesInVision.Remove(enemies[i]);
-                //GV.GetComponent<GlobalVariabels>().visible_enemies.Remove(enemies[i]);
             }
 
         }
         if (EnemiesInVision.ToArray() != memory)
         {
-            ISU(GV.GetComponent<GlobalVariabels>().visible_enemies, enemies, memory);
+            ISU(EnemiesInVision, enemies, memory);
             memory = EnemiesInVision.ToArray();
         }
         if(!selectedTarg)
@@ -142,13 +140,8 @@ public class Enemy_Sense : MonoBehaviour
         List<GameObject> isee = new List<GameObject>(); ;
         for (int i = 0; i < everything.Length; i++)
         {
-            if (!ThatISee.Contains(everything[i]))
+            if (ThatISee.Contains(everything[i]))
             {
-                everything[i].GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (ThatISee.Contains(everything[i]))
-            {
-                Debug.Log("42112");
                 everything[i].GetComponent<SpriteRenderer>().enabled = true;
             }
         }

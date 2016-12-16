@@ -20,8 +20,8 @@ public class SelectionRecatangle : MonoBehaviour {
 			click_pos1 = click_pos;
 		}
 		if (Input.GetMouseButton (0)){
-			transform.position = new Vector3 ((position.x + click_pos1.x)/2, (position.y + click_pos1.y)/2, 0);
-			transform.localScale = new Vector3 (Mathf.Abs (click_pos.x - click_pos1.x)*25, Mathf.Abs (click_pos.y - click_pos1.y)*25, 0);
+			transform.position = new Vector3 ((position.x + click_pos1.x)/2, (position.y + click_pos1.y)/2, -1);
+			transform.localScale = new Vector3 (Mathf.Abs (click_pos.x - click_pos1.x)*25, Mathf.Abs (click_pos.y - click_pos1.y)*25, -1);
         }
         if (Input.GetMouseButtonUp(0))
         {

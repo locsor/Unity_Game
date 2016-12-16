@@ -49,6 +49,7 @@ public class NewBehaviourScript : MonoBehaviour
     }
     void  Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         if(health <= 0)
         {
             Destroy(gameObject);
